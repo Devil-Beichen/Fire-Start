@@ -33,27 +33,21 @@ void AShooter::Tick(float DeltaTime)
 void AShooter::InitWeapons()
 {
 	for (const TSubclassOf<AWeapon> WeaponClass : WeaponClasses)
-	{
-		if (IsValid(WeaponClass))
-		{
+	{	
 			CreateWeapon(WeaponClass);
-			Weapons[0]->SetActorHiddenInGame(false);
-		}
+			Weapons[0]->SetActorHiddenInGame(false);	
 	}
 }
 
+//生成武器
 void AShooter::CreateWeapon(const TSubclassOf<AWeapon> WeaponClass)
-{
-	if (IsValid(WeaponClass))
-	{
-		
+{		
 		const FActorSpawnParameters Params;
 		AWeapon* Weapon = GetWorld()->SpawnActor<AWeapon>(WeaponClass, Params);
 		const FAttachmentTransformRules Rules(EAttachmentRule::SnapToTarget, true);
-		Weapon->AttachToComponent(GetMesh(), Rules, "RightWeapon");
+		Weapon->AttachToComponent(Mesh1P, Rules, "RightWeapon");
 		Weapon->SetWeaponOwner(this);
 		Weapons.Add(Weapon);
 		Weapon->SetActorHiddenInGame(true);
-	}
 }
 

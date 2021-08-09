@@ -18,10 +18,11 @@ APlayerShooter::APlayerShooter()
 	Mesh1P->SetupAttachment(CameraComponent);
 	Mesh1P->bCastDynamicShadow = false;
 	Mesh1P->CastShadow = false;
-	Mesh1P->SetRelativeRotation(FRotator(0, -90,0 ));
-	Mesh1P->SetRelativeLocation(FVector(0, -13, -145));
+	Mesh1P->SetRelativeRotation(FRotator(0, -90.0f,0 ));
+	Mesh1P->SetRelativeLocation(FVector(0, -6, -150));
+	
 }
-
+ 
 // Called to bind functionality to input 调用绑定的函数
 void APlayerShooter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
@@ -79,3 +80,4 @@ void APlayerShooter::LookUpAtRate(const float Rate)
 		this->AddControllerPitchInput(Rate*45.0f* GetWorld()->GetDeltaSeconds());
 	}
 }
+

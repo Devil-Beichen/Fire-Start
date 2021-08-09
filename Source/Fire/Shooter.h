@@ -15,6 +15,8 @@ class FIRE_API AShooter : public ACharacter
 {
 	GENERATED_BODY()
 
+	
+
 public:
 	// Sets default values for this character's properties
 	AShooter();
@@ -22,6 +24,10 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	//声明一个Mesh组件
+	UPROPERTY(VisibleDefaultsOnly, Category=Mesh)
+	USkeletalMeshComponent *Mesh1P;
 
 public:
 	// Called every frame
@@ -32,13 +38,14 @@ public:
 protected:
 
 	//遍历生成
-	void InitWeapons();
+	
+	 void InitWeapons();
 	//单独生成
-	void CreateWeapon(TSubclassOf<AWeapon> WeaponClass);
+	 void CreateWeapon(TSubclassOf<AWeapon> WeaponClass);
 
 	//武器参数
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = Shooter)
-		TArray<TSubclassOf<AWeapon>> WeaponClasses;
+	TArray<TSubclassOf<AWeapon>> WeaponClasses;
 
 	TArray<AWeapon*> Weapons;
 };

@@ -16,12 +16,11 @@ class FIRE_API APlayerShooter : public AShooter
 {
 	GENERATED_BODY()
 
-	UPROPERTY(VisibleDefaultsOnly, Category=Mesh)
-	USkeletalMeshComponent *Mesh1P;
+	
 
 public:
 	APlayerShooter();
-
+	
 	// Called to bind functionality to input//绑定函数声明
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
