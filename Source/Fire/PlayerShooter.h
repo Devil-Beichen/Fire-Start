@@ -15,7 +15,7 @@ UCLASS()
 class FIRE_API APlayerShooter : public AShooter 
 {
 	GENERATED_BODY()
-	
+
 	UPROPERTY(VisibleDefaultsOnly, Category=Mesh)
 	USkeletalMeshComponent *Mesh1P;
 

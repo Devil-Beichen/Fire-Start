@@ -37,6 +37,7 @@ void AShooter::InitWeapons()
 		if (IsValid(WeaponClass))
 		{
 			CreateWeapon(WeaponClass);
+			Weapons[0]->SetActorHiddenInGame(false);
 		}
 	}
 }
@@ -45,6 +46,7 @@ void AShooter::CreateWeapon(const TSubclassOf<AWeapon> WeaponClass)
 {
 	if (IsValid(WeaponClass))
 	{
+		
 		const FActorSpawnParameters Params;
 		AWeapon* Weapon = GetWorld()->SpawnActor<AWeapon>(WeaponClass, Params);
 		const FAttachmentTransformRules Rules(EAttachmentRule::SnapToTarget, true);
