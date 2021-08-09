@@ -31,11 +31,22 @@ void AShooter::Tick(float DeltaTime)
 void AShooter::InitWeapons()
 {
 	for(const TSubclassOf<AWeapon> WeaponClass:WeaponClasses)
-	CreateWeapon(WeaponClass);
+	{
+		if(IsValid(WeaponClass) )
+		{
+			CreateWeapon(WeaponClass);
+		}
+	}
 }
 
-void AShooter::CreateWeapon(TSubclassOf<AWeapon> WeaponClass)
+void AShooter::CreateWeapon(const TSubclassOf<AWeapon> WeaponClass)
 {
-	
+	if(IsValid(WeaponClass))
+	{
+		const FActorSpawnParameters Params;
+		AWeapon*Weapon = GetWorld()->SpawnActor<AWeapon>(WeaponClass,Params);
+		const FAttachmentTransformRules Rules(EAttachmentRule::SnapToTarget,true);
+		Weapon->AttachToComponent(GetMesh(),Rules ,"RightWeapon");
+	}
 }
 

@@ -9,7 +9,6 @@
 #include "Weapon.generated.h"
 
 
-class Shooter;
 UCLASS()
 class FIRE_API AWeapon : public AActor
 {
@@ -28,6 +27,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 
+
 	
 protected:
 
@@ -37,7 +37,6 @@ protected:
 
 	//箭头的声明
 	UPROPERTY(BlueprintReadOnly,VisibleAnywhere,Category=Weapon)
-	class UArrowComponent* Muzzle;
-
+	UArrowComponent* Muzzle;
 
 };
