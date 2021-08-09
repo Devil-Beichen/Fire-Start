@@ -18,6 +18,8 @@ void AShooter::BeginPlay()
 {
 	Super::BeginPlay();
 
+	InitWeapons();
+
 }
 
 // Called every frame
@@ -30,9 +32,9 @@ void AShooter::Tick(float DeltaTime)
 //遍历生成方法
 void AShooter::InitWeapons()
 {
-	for(const TSubclassOf<AWeapon> WeaponClass:WeaponClasses)
+	for (const TSubclassOf<AWeapon> WeaponClass : WeaponClasses)
 	{
-		if(IsValid(WeaponClass) )
+		if (IsValid(WeaponClass))
 		{
 			CreateWeapon(WeaponClass);
 		}
@@ -41,12 +43,15 @@ void AShooter::InitWeapons()
 
 void AShooter::CreateWeapon(const TSubclassOf<AWeapon> WeaponClass)
 {
-	if(IsValid(WeaponClass))
+	if (IsValid(WeaponClass))
 	{
 		const FActorSpawnParameters Params;
-		AWeapon*Weapon = GetWorld()->SpawnActor<AWeapon>(WeaponClass,Params);
-		const FAttachmentTransformRules Rules(EAttachmentRule::SnapToTarget,true);
-		Weapon->AttachToComponent(GetMesh(),Rules ,"RightWeapon");
+		AWeapon* Weapon = GetWorld()->SpawnActor<AWeapon>(WeaponClass, Params);
+		const FAttachmentTransformRules Rules(EAttachmentRule::SnapToTarget, true);
+		Weapon->AttachToComponent(GetMesh(), Rules, "RightWeapon");
+		Weapon->SetWeaponOwner(this);
+		Weapons.Add(Weapon);
+		Weapon->SetActorHiddenInGame(true);
 	}
 }
 

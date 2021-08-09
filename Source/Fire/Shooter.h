@@ -27,18 +27,18 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	
+
 
 protected:
-	
+
 	//遍历生成
 	void InitWeapons();
 	//单独生成
 	void CreateWeapon(TSubclassOf<AWeapon> WeaponClass);
-	
-	//武器参数
-	UPROPERTY(BlueprintReadWrite,EditDefaultsOnly,Category=Shooter)
-	TArray<TSubclassOf<AWeapon>> WeaponClasses;
 
-	TArray<AWeapon> Weapons;
+	//武器参数
+	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = Shooter)
+		TArray<TSubclassOf<AWeapon>> WeaponClasses;
+
+	TArray<AWeapon*> Weapons;
 };

@@ -3,18 +3,18 @@
 #pragma once
 
 #include "CoreMinimal.h"
-
 #include "Components/ArrowComponent.h"
 #include "GameFramework/Actor.h"
 #include "Weapon.generated.h"
 
 
+class AShooter;
 UCLASS()
 class FIRE_API AWeapon : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	AWeapon();
 
@@ -22,21 +22,23 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 
+	void SetWeaponOwner(AShooter* Shooter) { WeaponOwner = Shooter; }
 
-	
 protected:
 
 	//骨骼网格体的声明
-	UPROPERTY(BlueprintReadOnly,VisibleAnywhere,Category=Weapon)
-	USkeletalMeshComponent* Mesh;
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = Weapon)
+		USkeletalMeshComponent* Mesh;
 
 	//箭头的声明
-	UPROPERTY(BlueprintReadOnly,VisibleAnywhere,Category=Weapon)
-	UArrowComponent* Muzzle;
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = Weapon)
+		UArrowComponent* Muzzle;
+
+	class AShooter* WeaponOwner;
 
 };
