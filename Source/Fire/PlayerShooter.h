@@ -42,4 +42,10 @@ protected:
 	
 	//上下看声明
 	void LookUpAtRate(float Rate);
+
+	//开火声明
+	void StartFire();
+
+	//开火结束声明
+	void EndFire();
 };

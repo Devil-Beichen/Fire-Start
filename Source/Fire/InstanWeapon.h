@@ -13,5 +13,9 @@ UCLASS()
 class FIRE_API AInstanWeapon : public AWeapon
 {
 	GENERATED_BODY()
+public:
+	void StartFire() override;
+	void EndFire() override;
+	void ShootOnce() override;
 	
 };
