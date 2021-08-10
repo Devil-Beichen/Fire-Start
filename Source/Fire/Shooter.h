@@ -44,7 +44,7 @@ public:
 	bool IsDead() { return Health <= 0; };
 	bool IsEnemy(AShooter* Another) { return Team != Another->Team; };
 
-	void TakeDamage(float Damage, AShooter* Enemy);
+	void TakeWeaponDamage(float Damage, AShooter* Enemy);
 
 protected:
 

@@ -53,7 +53,7 @@ void AShooter::CreateWeapon(const TSubclassOf<AWeapon> WeaponClass)
 
 
 
-void AShooter::TakeDamage(float Damage, AShooter* Enemy)
+void AShooter::TakeWeaponDamage(float Damage, AShooter* Enemy)
 {
 	if (IsDead())
 		return;
@@ -70,6 +70,8 @@ void AShooter::Die()
 	OnDie();
 	FTimerHandle Handle;
 	GetWorldTimerManager().SetTimer(Handle, this, &APawn::DetachFromControllerPendingDestroy, 0.1, false);
+	FDamageEvent DamageEvent;
+	this->TakeWeaponDamage(20,this);
 }
 
 void AShooter::OnDie()

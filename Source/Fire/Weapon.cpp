@@ -6,7 +6,7 @@
 // Sets default values
 AWeapon::AWeapon()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	Mesh = CreateDefaultSubobject<USkeletalMeshComponent>("Mesh");
 	Muzzle = CreateDefaultSubobject<UArrowComponent>("Muzzle");
@@ -18,7 +18,7 @@ AWeapon::AWeapon()
 void AWeapon::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
 }
 
 // Called every frame
@@ -31,7 +31,7 @@ void AWeapon::Tick(float DeltaTime)
 void AWeapon::PostInitializeComponents()
 {
 	Super::PostInitializeComponents();
-	BulletNum=ClipSize;
+	BulletNum = ClipSize;
 }
 
 
