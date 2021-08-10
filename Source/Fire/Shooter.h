@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 
+#include <TimerManager.h>
 #include "Weapon.h"
 #include "GameFramework/Character.h"
 #include "Shooter.generated.h"
@@ -33,7 +34,17 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	AWeapon* GetCurrentWeapon(){return Weapons[GetCurrentWeaponIndex];}
+	AWeapon* GetCurrentWeapon() { return Weapons[GetCurrentWeaponIndex]; }
+
+	//生成位置
+	virtual FVector GetShootLocation() { return FVector::ZeroVector; }
+	//朝向
+	virtual FVector GetShootDirection() { return FVector::ZeroVector; }
+
+	bool IsDead() { return Health <= 0; };
+	bool IsEnemy(AShooter* Another) { return Team != Another->Team; };
+
+	void TakeDamage(float Damage, AShooter* Enemy);
 
 protected:
 
@@ -50,4 +61,14 @@ protected:
 	TArray<AWeapon*> Weapons;
 
 	int GetCurrentWeaponIndex;
+
+	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = Shooter)
+		float Health;
+
+	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = Shooter)
+		int Team;
+
+private:
+	void Die();
+	void OnDie();
 };

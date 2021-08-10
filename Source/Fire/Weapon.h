@@ -22,17 +22,18 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	
-	
+
+
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-	virtual void StartFire(){};  //virtual虚函数
-	virtual void EndFire(){};
-	virtual void ShootOnce(){};
+	virtual void StartFire() {};  //virtual虚函数
+	virtual void EndFire() {};
+	virtual void ShootOnce() {};
 
 	void SetWeaponOwner(AShooter* Shooter) { WeaponOwner = Shooter; }
-	
+
+	virtual void PostInitializeComponents() override;
 
 protected:
 
@@ -46,4 +47,11 @@ protected:
 
 	class AShooter* WeaponOwner;
 
+	// 弹夹大小
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Weapon")
+		int ClipSize;
+
+	// 子弹数量
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Weapon")
+		int BulletNum;
 };

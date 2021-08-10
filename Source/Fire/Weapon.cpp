@@ -28,5 +28,10 @@ void AWeapon::Tick(float DeltaTime)
 
 }
 
+void AWeapon::PostInitializeComponents()
+{
+	Super::PostInitializeComponents();
+	BulletNum=ClipSize;
+}
 
 

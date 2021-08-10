@@ -48,4 +48,8 @@ protected:
 
 	//开火结束声明
 	void EndFire();
+
+	FVector GetShootLocation() override {return CameraComponent->GetComponentLocation();};
+
+	FVector GetShootDirection() override {return CameraComponent->GetForwardVector();};
 };
