@@ -52,27 +52,36 @@ void AShooter::CreateWeapon(const TSubclassOf<AWeapon> WeaponClass)
 }
 
 
-
-void AShooter::TakeWeaponDamage(float Damage, AShooter* Enemy)
+//受到伤害
+void AShooter::TakeWeaponDamage(const float Damage, AShooter* Enemy)
 {
 	if (IsDead())
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, TEXT("受到伤害了"));
 		return;
+	}
 	Health -= Damage;
-	if (IsDead())
-		Die();
 
+	if (IsDead())
+	{
+		Die();
+	}
 }
 
+//死亡
 void AShooter::Die()
 {
-	for (auto Weapon:Weapons)
-	{Weapon->EndFire();}
+	for (auto Weapon : Weapons)
+	{
+		Weapon->EndFire();
+	}
 	OnDie();
 	FTimerHandle Handle;
 	GetWorldTimerManager().SetTimer(Handle, this, &APawn::DetachFromControllerPendingDestroy, 0.1, false);
 	FDamageEvent DamageEvent;
-	this->TakeWeaponDamage(20,this);
+	this->TakeWeaponDamage(20, this);
 }
+
 
 void AShooter::OnDie()
 {

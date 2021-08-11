@@ -43,7 +43,7 @@ protected:
 
 	//箭头的声明
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = Weapon)
-		UArrowComponent* Muzzle;
+	class UArrowComponent* Muzzle;
 
 	class AShooter* WeaponOwner;
 

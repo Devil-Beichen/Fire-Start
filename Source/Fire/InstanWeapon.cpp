@@ -18,15 +18,17 @@ void AInstanWeapon::EndFire()
 
 void AInstanWeapon::ShootOnce()
 {
+	
 	//GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("ShootOnce"));
 	if (BulletNum <= 0)
 	{
+		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Yellow, TEXT("呕吼！没子弹了"));
 		EndFire();
 		return;
 	}
 
 	BulletNum--;
-
+	
 	const FVector Start = WeaponOwner->GetShootLocation();
 	const FVector End = Start + WeaponOwner->GetShootDirection() * 1500;
 	TArray<AActor*> Ignore;
@@ -34,23 +36,24 @@ void AInstanWeapon::ShootOnce()
 	FHitResult HitResult;
 	const bool HasHit = UKismetSystemLibrary::LineTraceSingle(this, Start, End, TraceTypeQuery2, false, Ignore, EDrawDebugTrace::Persistent, HitResult, true);
 
-	if (!HasHit)
+	if (!HasHit)//判断是否检测到物体
 	{
+		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Blue, TEXT("呕吼！致命空枪"));
+		EndFire();//没有检查到物体
 		return;
 	}
-
+	//将检测到的物体转换成Ashooter
 	AShooter* Enemy = Cast<AShooter>(HitResult.Actor);
-
-	if (!WeaponOwner->IsEnemy(Enemy))
+	//没有检查到对应的物体
+	if (Enemy==nullptr)
 	{
+		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Green, TEXT("打中障碍物了"));
+		EndFire();
 		return;
 	}
-	else if (Enemy != nullptr)
-	{
-		Enemy->TakeWeaponDamage(20.0f, WeaponOwner);
-	}
-
-
-
-
+	
+	//检查到的物体等于需要检查的物体
+	Enemy->TakeWeaponDamage(20.0f, WeaponOwner);	
+	GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Yellow, TEXT("打中目标了"));
+	//return;	
 }
