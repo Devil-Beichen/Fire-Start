@@ -10,12 +10,10 @@
 #include "Shooter.generated.h"
 
 
-
 UCLASS()
 class FIRE_API AShooter : public ACharacter
 {
 	GENERATED_BODY()
-
 
 
 public:
@@ -28,7 +26,7 @@ protected:
 
 	//声明一个Mesh组件
 	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
-		USkeletalMeshComponent* Mesh1P;
+	USkeletalMeshComponent* Mesh1P;
 
 public:
 	// Called every frame
@@ -47,7 +45,6 @@ public:
 	void TakeWeaponDamage(float Damage, AShooter* Enemy);
 
 protected:
-
 	//遍历生成
 
 	void InitWeapons();
@@ -56,17 +53,17 @@ protected:
 
 	//武器参数
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = Shooter)
-		TArray<TSubclassOf<AWeapon>> WeaponClasses;
+	TArray<TSubclassOf<AWeapon>> WeaponClasses;
 
 	TArray<AWeapon*> Weapons;
 
 	int GetCurrentWeaponIndex;
 
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = Shooter)
-		float Health;
+	float Health;
 
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = Shooter)
-		int Team;
+	int Team;
 
 private:
 	void Die();
