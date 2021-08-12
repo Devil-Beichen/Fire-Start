@@ -50,10 +50,15 @@ void AInstanWeapon::ShootOnce()
 		EndFire();
 		return;
 	}
-
-
-	//检查到的物体等于需要检查的物体
-	Enemy->TakeWeaponDamage(20.0f, WeaponOwner);
+	//判断是否击中了自己人
+	if (!WeaponOwner->IsEnemy(Enemy))
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Yellow, TEXT("打中了自己人"));
+		return;
+	}
+	//打中了敌人
 	GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Yellow, TEXT("打中目标了"));
+	Enemy->TakeWeaponDamage(20.0f, WeaponOwner);
+
 	//return;	
 }

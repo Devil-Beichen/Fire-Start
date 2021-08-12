@@ -29,6 +29,8 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	virtual void StartFire() {};  //virtual虚函数
 	virtual void EndFire() {};
+
+	UFUNCTION(BlueprintCallable, Category="Weapon")
 	virtual void ShootOnce() {};
 
 	void SetWeaponOwner(AShooter* Shooter) { WeaponOwner = Shooter; }
@@ -45,7 +47,7 @@ protected:
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = Weapon)
 	class UArrowComponent* Muzzle;
 
-	class AShooter* WeaponOwner;
+	AShooter* WeaponOwner;
 
 	// 弹夹大小
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Weapon")
