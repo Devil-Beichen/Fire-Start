@@ -25,24 +25,30 @@ protected:
 	virtual void BeginPlay() override;
 
 	//声明一个Mesh组件
-	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
+	UPROPERTY(BlueprintReadOnly, VisibleDefaultsOnly, Category = Mesh)
 	USkeletalMeshComponent* Mesh1P;
 
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	UFUNCTION(BlueprintPure, Category="Shooter")
 	AWeapon* GetCurrentWeapon() { return Weapons[GetCurrentWeaponIndex]; }
 
 	//生成位置
 	virtual FVector GetShootLocation() { return FVector::ZeroVector; }
+
 	//朝向
+	UFUNCTION(BlueprintPure, Category="Shooter")
 	virtual FVector GetShootDirection() { return FVector::ZeroVector; }
 
+	UFUNCTION(BlueprintPure, Category="Shooter")
 	bool IsDead() { return Health <= 0; };
+
+	UFUNCTION(BlueprintPure, Category="Shooter")
 	bool IsEnemy(AShooter* Another) { return Team != Another->Team; };
 
-	void TakeWeaponDamage(float Damage, AShooter* Enemy);
+	void TakeWeaponDamage(const float Damage, const AShooter* Enemy);
 
 protected:
 	//遍历生成
@@ -51,17 +57,21 @@ protected:
 	//单独生成
 	void CreateWeapon(TSubclassOf<AWeapon> WeaponClass);
 
-	//武器参数
+	//武器种类
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = Shooter)
 	TArray<TSubclassOf<AWeapon>> WeaponClasses;
 
+	//所有武器
+	UPROPERTY(BlueprintReadWrite, Category = Shooter)
 	TArray<AWeapon*> Weapons;
 
 	int GetCurrentWeaponIndex;
 
+	//血量
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = Shooter)
 	float Health;
 
+	//队伍
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = Shooter)
 	int Team;
 

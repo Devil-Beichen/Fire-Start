@@ -9,8 +9,6 @@ AShooter::AShooter()
 {
 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
-
 }
 
 // Called when the game starts or when spawned
@@ -19,14 +17,12 @@ void AShooter::BeginPlay()
 	Super::BeginPlay();
 
 	InitWeapons();
-
 }
 
 // Called every frame
 void AShooter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
 //遍历生成方法
@@ -34,8 +30,11 @@ void AShooter::InitWeapons()
 {
 	for (const TSubclassOf<AWeapon> WeaponClass : WeaponClasses)
 	{
-		CreateWeapon(WeaponClass);
-		Weapons[0]->SetActorHiddenInGame(false);
+		if (IsValid(WeaponClass))
+		{
+			CreateWeapon(WeaponClass);
+			Weapons[0]->SetActorHiddenInGame(false);
+		}
 	}
 }
 
@@ -53,15 +52,15 @@ void AShooter::CreateWeapon(const TSubclassOf<AWeapon> WeaponClass)
 
 
 //受到伤害
-void AShooter::TakeWeaponDamage(const float Damage, AShooter* Enemy)
+void AShooter::TakeWeaponDamage(const float Damage, const AShooter* Enemy)
 {
 	if (IsDead())
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, TEXT("受到伤害了"));
 		return;
 	}
 	Health -= Damage;
-
+	//GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, TEXT("受到伤害了"));
+	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("Health: %f"), Health));
 	if (IsDead())
 	{
 		Die();
@@ -71,6 +70,7 @@ void AShooter::TakeWeaponDamage(const float Damage, AShooter* Enemy)
 //死亡
 void AShooter::Die()
 {
+	GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, TEXT("死亡"));
 	for (auto Weapon : Weapons)
 	{
 		Weapon->EndFire();
@@ -85,5 +85,7 @@ void AShooter::Die()
 
 void AShooter::OnDie()
 {
+	
+	GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, TEXT("! ! ! ! !"));
 	//throw std::logic_error("The method or operation is not implemented.");
 }

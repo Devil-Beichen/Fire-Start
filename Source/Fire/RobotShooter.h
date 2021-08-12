@@ -13,5 +13,10 @@ UCLASS()
 class FIRE_API ARobotShooter : public AShooter
 {
 	GENERATED_BODY()
+
+public:
+	ARobotShooter();
 	
+	
+
 };
