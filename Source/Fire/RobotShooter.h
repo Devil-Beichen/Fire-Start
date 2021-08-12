@@ -7,11 +7,20 @@
 #include "RobotShooter.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
 class FIRE_API ARobotShooter : public AShooter
 {
 	GENERATED_BODY()
-	
+
+public:
+	ARobotShooter();
+
+	FVector GetShootLocation() { return this->GetActorLocation(); }
+
+	FVector GetShootDirection() { return this->GetActorForwardVector(); }
+
+
+
 };

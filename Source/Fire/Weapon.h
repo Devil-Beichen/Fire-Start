@@ -29,6 +29,8 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	virtual void StartFire() {};  //virtual虚函数
 	virtual void EndFire() {};
+
+	UFUNCTION(BlueprintCallable, Category = Weapon)
 	virtual void ShootOnce() {};
 
 	void SetWeaponOwner(AShooter* Shooter) { WeaponOwner = Shooter; }
