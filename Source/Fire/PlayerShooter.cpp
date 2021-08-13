@@ -3,6 +3,12 @@
 
 #include "PlayerShooter.h"
 
+#include <ThirdParty/openexr/Deploy/OpenEXR-2.3.0/OpenEXR/include/ImfArray.h>
+#include <ThirdParty/WebRTC/rev.24472/Include/Win64/VS2015/api/video/video_content_type.h>
+
+#include "../../Plugins/Developer/RiderLink/Source/RD/src/rd_core_cpp/src/main/std/list.h"
+#include "Algo/ForEach.h"
+
 APlayerShooter::APlayerShooter()
 {
 	//创建一个相机，绑定在根骨骼上
@@ -16,11 +22,10 @@ APlayerShooter::APlayerShooter()
 	Mesh1P->SetOnlyOwnerSee(true);
 	Mesh1P->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	Mesh1P->SetupAttachment(CameraComponent);
-	Mesh1P->bCastDynamicShadow = false;//false
+	Mesh1P->bCastDynamicShadow = false; //false
 	Mesh1P->CastShadow = false;
 	Mesh1P->SetRelativeRotation(FRotator(0, -90.0f, 0));
 	Mesh1P->SetRelativeLocation(FVector(0, -6, -150));
-
 }
 
 // Called to bind functionality to input 调用绑定的函数
@@ -45,9 +50,19 @@ void APlayerShooter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 	PlayerInputComponent->BindAction("Jump", IE_Released, this, &APlayerShooter::StopJumping);
 
 	//开火
-	PlayerInputComponent->BindAction("Fire",IE_Pressed,this ,&APlayerShooter::StartFire);
-	PlayerInputComponent->BindAction("Fire",IE_Released,this ,&APlayerShooter::EndFire);
+	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &APlayerShooter::StartFire);
+	PlayerInputComponent->BindAction("Fire", IE_Released, this, &APlayerShooter::EndFire);
+}
 
+void APlayerShooter::OnDie()
+{
+	UCameraComponent* Camera = CameraComponent;
+	FHitResult SweepHitResult;
+	Camera->K2_AddLocalOffset(FVector(-400, 0, 0), false, SweepHitResult, false);
+	GetMesh()->SetSkeletalMesh(DieMesh);
+	GetMesh()->SetSimulatePhysics(true);
+	GetMesh()->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+	Mesh1P->SetHiddenInGame(false);
 }
 
 //前后移动定义
@@ -95,7 +110,4 @@ void APlayerShooter::StartFire()
 
 void APlayerShooter::EndFire()
 {
-	
 }
-
-

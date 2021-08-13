@@ -57,8 +57,15 @@ void AInstanWeapon::ShootOnce()
 		return;
 	}
 	//打中了敌人
-	GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Yellow, TEXT("打中目标了"));
-	Enemy->TakeWeaponDamage(20.0f, WeaponOwner);
-
-	//return;	
+	if (Enemy->Health <= 0)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Yellow, TEXT("敌人已经死了"));
+	}
+	if (Enemy->Health > 0 && Enemy->Health != 0)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Yellow, TEXT("打中目标了"));
+		Enemy->TakeWeaponDamage(20.0f, WeaponOwner);
+	}
+	EndFire();
+	return;
 }

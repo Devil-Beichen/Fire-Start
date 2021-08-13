@@ -3,6 +3,8 @@
 
 #include "Shooter.h"
 
+#include "ShooterGameInstance.h"
+
 
 // Sets default values
 AShooter::AShooter()
@@ -52,7 +54,7 @@ void AShooter::CreateWeapon(const TSubclassOf<AWeapon> WeaponClass)
 
 
 //受到伤害
-void AShooter::TakeWeaponDamage(const float Damage, const AShooter* Enemy)
+void AShooter::TakeWeaponDamage( float Damage,  AShooter* Enemy)
 {
 	if (IsDead())
 	{
@@ -63,19 +65,24 @@ void AShooter::TakeWeaponDamage(const float Damage, const AShooter* Enemy)
 	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("Health: %f"), Health));
 	if (IsDead())
 	{
-		Die();
+		Die(Enemy);
 	}
 }
 
 //死亡
-void AShooter::Die()
+void AShooter::Die(AShooter* Enemy)
 {
 	GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, TEXT("死亡"));
 	for (auto Weapon : Weapons)
 	{
 		Weapon->EndFire();
+		Weapon->DestThis();
+		
 	}
 	OnDie();
+	const UShooterGameInstance* GameInstance = Cast<UShooterGameInstance>(GetGameInstance());
+	GameInstance->OnKillInfoUpdate.Broadcast(Enemy->GetClass()->GetName(),this->GetClass()->GetName(),Enemy->Team,this->Team,
+		Enemy->GetCurrentWeapon()->GetIcon());
 	FTimerHandle Handle;
 	GetWorldTimerManager().SetTimer(Handle, this, &APawn::DetachFromControllerPendingDestroy, 0.1, false);
 	FDamageEvent DamageEvent;
@@ -85,7 +92,6 @@ void AShooter::Die()
 
 void AShooter::OnDie()
 {
-	
-	GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, TEXT("! ! ! ! !"));
+	GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, TEXT("我死了"));
 	//throw std::logic_error("The method or operation is not implemented.");
 }

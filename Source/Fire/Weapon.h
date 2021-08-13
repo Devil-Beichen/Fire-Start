@@ -23,25 +23,34 @@ protected:
 	virtual void BeginPlay() override;
 
 
-
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-	virtual void StartFire() {};  //virtual虚函数
-	virtual void EndFire() {};
+
+	virtual void StartFire()
+	{
+	}; //virtual虚函数
+	virtual void EndFire()
+	{
+	};
 
 	UFUNCTION(BlueprintCallable, Category = Weapon)
-	virtual void ShootOnce() {};
+	virtual void ShootOnce()
+	{
+	};
 
 	void SetWeaponOwner(AShooter* Shooter) { WeaponOwner = Shooter; }
 
 	virtual void PostInitializeComponents() override;
 
-protected:
+	UTexture2D* GetIcon() { return Icon; }
 
+	//删除自己
+	void DestThis();;
+protected:
 	//骨骼网格体的声明
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = Weapon)
-		USkeletalMeshComponent* Mesh;
+	USkeletalMeshComponent* Mesh;
 
 	//箭头的声明
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = Weapon)
@@ -51,9 +60,12 @@ protected:
 
 	// 弹夹大小
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Weapon")
-		int ClipSize;
+	int ClipSize;
 
 	// 子弹数量
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Weapon")
-		int BulletNum;
+	int BulletNum;
+
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = Weapon)
+	UTexture2D* Icon;
 };

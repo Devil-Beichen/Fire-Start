@@ -17,10 +17,7 @@ class FIRE_API ARobotShooter : public AShooter
 public:
 	ARobotShooter();
 
-	FVector GetShootLocation() { return this->GetActorLocation(); }
+	FVector GetShootLocation() override { return this->GetActorLocation(); }
 
-	FVector GetShootDirection() { return this->GetActorForwardVector(); }
-
-
-
+	FVector GetShootDirection() override { return this->GetActorForwardVector(); }
 };

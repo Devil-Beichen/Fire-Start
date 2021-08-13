@@ -48,7 +48,7 @@ public:
 	UFUNCTION(BlueprintPure, Category="Shooter")
 	bool IsEnemy(AShooter* Another) { return Team != Another->Team; };
 
-	void TakeWeaponDamage(const float Damage, const AShooter* Enemy);
+	void TakeWeaponDamage(float Damage, AShooter* Enemy);
 
 protected:
 	//遍历生成
@@ -67,6 +67,7 @@ protected:
 
 	int GetCurrentWeaponIndex;
 
+public:
 	//血量
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = Shooter)
 	float Health;
@@ -76,6 +77,7 @@ protected:
 	int Team;
 
 private:
-	void Die();
-	void OnDie();
+	void Die(AShooter* Enemy);
+
+	virtual void OnDie();
 };

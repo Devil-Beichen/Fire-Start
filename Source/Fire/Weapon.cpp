@@ -34,4 +34,9 @@ void AWeapon::PostInitializeComponents()
 	BulletNum = ClipSize;
 }
 
+void AWeapon::DestThis()
+{
+	K2_DestroyActor();
+}
+
 
