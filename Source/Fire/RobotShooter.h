@@ -7,7 +7,7 @@
 #include "RobotShooter.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
 class FIRE_API ARobotShooter : public AShooter
@@ -16,7 +16,11 @@ class FIRE_API ARobotShooter : public AShooter
 
 public:
 	ARobotShooter();
-	
-	
+
+	FVector GetShootLocation() { return this->GetActorLocation(); }
+
+	FVector GetShootDirection() { return this->GetActorForwardVector(); }
+
+
 
 };
